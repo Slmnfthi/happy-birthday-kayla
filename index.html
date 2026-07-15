@@ -1,0 +1,1188 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Untuk Kayla, Selamat Ulang Tahun</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --wine-dark: #2a1016;
+        --wine-deep: #3c1620;
+        --wine-deeper: #210b10;
+        --blush: #f5e6da;
+        --blush-dim: #e3cdbd;
+        --rose-gold: #d9a184;
+        --dusty-pink: #e8b0ba;
+        --gold-soft: #caa46a;
+        --leaf: #8a9a72;
+        --line: rgba(217, 161, 132, 0.35);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(
+            ellipse at 20% 0%,
+            rgba(232, 176, 186, 0.08),
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 80% 100%,
+            rgba(202, 164, 106, 0.08),
+            transparent 55%
+          ),
+          linear-gradient(
+            180deg,
+            var(--wine-deeper),
+            var(--wine-dark) 20%,
+            var(--wine-deep) 55%,
+            var(--wine-dark) 100%
+          );
+        color: var(--blush);
+        font-family: "Lora", serif;
+        overflow-x: hidden;
+        min-height: 100vh;
+      }
+      ::selection {
+        background: var(--dusty-pink);
+        color: var(--wine-deeper);
+      }
+
+      /* ---------- Scroll vine indicator ---------- */
+      #vine {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        z-index: 40;
+        background: linear-gradient(
+          180deg,
+          transparent,
+          var(--line) 4%,
+          var(--line) 96%,
+          transparent
+        );
+      }
+      #vine-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 0%;
+        background: linear-gradient(
+          180deg,
+          var(--gold-soft),
+          var(--dusty-pink)
+        );
+        transition: height 0.1s linear;
+      }
+      #vine-heart {
+        position: absolute;
+        left: 50%;
+        top: 0%;
+        transform: translate(-50%, -50%);
+        font-size: 11px;
+        filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.5));
+        transition: top 0.1s linear;
+      }
+
+      /* ---------- Floating particles ---------- */
+      #particles {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+        overflow: hidden;
+      }
+      .petal {
+        position: absolute;
+        bottom: -5%;
+        font-size: 14px;
+        opacity: 0;
+        animation-name: rise;
+        animation-timing-function: ease-in;
+        animation-fill-mode: forwards;
+        color: var(--dusty-pink);
+        filter: drop-shadow(0 0 6px rgba(232, 176, 186, 0.25));
+      }
+      @keyframes rise {
+        0% {
+          opacity: 0;
+          transform: translate(0, 0) rotate(0deg);
+        }
+        10% {
+          opacity: 0.85;
+        }
+        90% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(var(--drift), -110vh) rotate(var(--spin));
+        }
+      }
+
+      section {
+        position: relative;
+        z-index: 10;
+        padding: 120px 22px;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        font-family: "Jost", sans-serif;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-size: 11.5px;
+        color: var(--rose-gold);
+        text-align: center;
+        margin-bottom: 14px;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.9s ease,
+          transform 0.9s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ---------- Cover ---------- */
+      #cover {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 24px;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* ---------- Envelope + flowers scene ---------- */
+      .envelope-wrap {
+        position: relative;
+        width: 220px;
+        height: 150px;
+        margin-bottom: 40px;
+        perspective: 800px;
+      }
+      .envelope {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 128px;
+        animation: envBreathe 3.6s ease-in-out infinite;
+      }
+      .envelope.opened {
+        animation: none;
+      }
+      @keyframes envBreathe {
+        0%,
+        100% {
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          transform: translateX(-50%) scale(1.035);
+        }
+      }
+      .env-body {
+        position: absolute;
+        inset: 0;
+        top: 18px;
+        background: linear-gradient(160deg, #4a1d28, #2a1016 70%);
+        border-radius: 4px;
+        box-shadow:
+          0 16px 34px rgba(0, 0, 0, 0.45),
+          inset 0 0 0 1px rgba(217, 161, 132, 0.25);
+      }
+      .env-letter {
+        position: absolute;
+        left: 50%;
+        top: 4px;
+        width: 74%;
+        height: 88px;
+        background: linear-gradient(180deg, #fbf3ea, var(--blush));
+        border-radius: 3px 3px 1px 1px;
+        transform: translate(-50%, 0);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+        z-index: 2;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 14px;
+        font-size: 20px;
+        color: var(--dusty-pink);
+      }
+      .envelope.opened .env-letter {
+        animation: letterRise 0.65s 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)
+          forwards;
+      }
+      @keyframes letterRise {
+        from {
+          transform: translate(-50%, 0);
+        }
+        to {
+          transform: translate(-50%, -34px);
+        }
+      }
+      .env-pocket-left,
+      .env-pocket-right {
+        position: absolute;
+        bottom: 18px;
+        width: 50%;
+        height: 78px;
+        z-index: 3;
+        background: linear-gradient(160deg, #5a2532, #341118 80%);
+      }
+      .env-pocket-left {
+        left: 0;
+        clip-path: polygon(0 100%, 0 0, 100% 62%);
+      }
+      .env-pocket-right {
+        right: 0;
+        clip-path: polygon(100% 100%, 100% 0, 0 62%);
+      }
+      .env-flap {
+        position: absolute;
+        top: 18px;
+        left: 0;
+        width: 100%;
+        height: 72px;
+        background: linear-gradient(160deg, #6e2634, #3c1620 85%);
+        clip-path: polygon(0 0, 100% 0, 50% 78%);
+        transform-origin: top center;
+        z-index: 4;
+        box-shadow: inset 0 0 0 1px rgba(217, 161, 132, 0.2);
+      }
+      .envelope.opened .env-flap {
+        animation: flapOpen 0.6s ease forwards;
+      }
+      @keyframes flapOpen {
+        from {
+          transform: rotateX(0deg);
+        }
+        to {
+          transform: rotateX(-165deg);
+        }
+      }
+      .envelope {
+        transform-style: preserve-3d;
+      }
+
+      .env-flowers {
+        position: absolute;
+        left: 50%;
+        top: 6px;
+        width: 1px;
+        height: 1px;
+        z-index: 5;
+      }
+      .flower {
+        position: absolute;
+        width: 42px;
+        height: 42px;
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+      }
+      .env-flowers.bloom .flower {
+        animation-name: flowerBloom;
+        animation-duration: 0.85s;
+        animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+        animation-fill-mode: forwards;
+      }
+      .flower span {
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        background: var(--dusty-pink);
+      }
+      .flower span:nth-child(1) {
+        transform: translate(-50%, -50%) translateY(-11px);
+      }
+      .flower span:nth-child(2) {
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-11px);
+      }
+      .flower span:nth-child(3) {
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-11px);
+      }
+      .flower span:nth-child(4) {
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-11px);
+      }
+      .flower span:nth-child(5) {
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-11px);
+      }
+      .flower span.center {
+        width: 13px;
+        height: 13px;
+        background: var(--gold-soft);
+        transform: translate(-50%, -50%);
+        z-index: 2;
+      }
+      .flower .stem {
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        width: 3px;
+        height: 30px;
+        background: var(--leaf);
+        transform: translateX(-50%);
+        border-radius: 2px;
+        z-index: -1;
+      }
+      .flower.rose span {
+        background: var(--rose-gold);
+      }
+      .flower.gold span {
+        background: var(--gold-soft);
+      }
+      .flower.gold span.center {
+        background: var(--dusty-pink);
+      }
+
+      .fl-1 {
+        margin-left: -46px;
+      }
+      .fl-2 {
+        margin-left: 4px;
+      }
+      .fl-3 {
+        margin-left: 44px;
+      }
+      .fl-4 {
+        margin-left: -14px;
+      }
+      .fl-5 {
+        margin-left: 22px;
+      }
+
+      .env-flowers.bloom .fl-1 {
+        animation-delay: 0.55s;
+        --rise: -58px;
+        --rot: -12deg;
+      }
+      .env-flowers.bloom .fl-2 {
+        animation-delay: 0.75s;
+        --rise: -82px;
+        --rot: 4deg;
+      }
+      .env-flowers.bloom .fl-3 {
+        animation-delay: 0.65s;
+        --rise: -60px;
+        --rot: 14deg;
+      }
+      .env-flowers.bloom .fl-4 {
+        animation-delay: 0.9s;
+        --rise: -46px;
+        --rot: -20deg;
+      }
+      .env-flowers.bloom .fl-5 {
+        animation-delay: 0.95s;
+        --rise: -44px;
+        --rot: 18deg;
+      }
+
+      @keyframes flowerBloom {
+        0% {
+          transform: translate(-50%, -50%) scale(0) rotate(0deg);
+          opacity: 0;
+        }
+        55% {
+          transform: translate(-50%, -50%) translateY(var(--rise, -60px))
+            scale(1.18) rotate(var(--rot, 0deg));
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) translateY(var(--rise, -60px))
+            scale(1) rotate(var(--rot, 0deg));
+          opacity: 1;
+        }
+      }
+
+      #cover .to {
+        font-family: "Jost", sans-serif;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-size: 11px;
+        color: var(--rose-gold);
+        margin-bottom: 10px;
+      }
+      #cover h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(28px, 6vw, 40px);
+        margin: 0 0 8px;
+        color: var(--blush);
+      }
+      #cover p.sub {
+        font-size: 14.5px;
+        color: var(--blush-dim);
+        max-width: 340px;
+        line-height: 1.7;
+        margin: 0 0 40px;
+      }
+      #openBtn {
+        font-family: "Jost", sans-serif;
+        letter-spacing: 0.08em;
+        font-size: 14px;
+        background: transparent;
+        color: var(--blush);
+        border: 1px solid var(--rose-gold);
+        padding: 14px 34px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition:
+          background 0.35s ease,
+          color 0.35s ease,
+          letter-spacing 0.35s ease,
+          opacity 0.35s ease;
+      }
+      #openBtn:hover {
+        background: var(--rose-gold);
+        color: var(--wine-deeper);
+        letter-spacing: 0.14em;
+      }
+      #openBtn:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      #cover .scrollcue {
+        position: absolute;
+        bottom: 26px;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        color: var(--rose-gold);
+        font-family: "Jost", sans-serif;
+        opacity: 0.7;
+      }
+
+      /* ---------- Hero ---------- */
+      #hero {
+        text-align: center;
+        padding-top: 90px;
+      }
+      #hero .line1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 500;
+        font-size: clamp(22px, 5vw, 30px);
+        color: var(--blush-dim);
+        margin: 0;
+      }
+      #hero h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 600;
+        font-size: clamp(44px, 11vw, 78px);
+        line-height: 1.05;
+        margin: 6px 0 22px;
+        background: linear-gradient(180deg, #f8e9dd, var(--dusty-pink));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      #hero .sub {
+        font-size: 15px;
+        color: var(--blush-dim);
+        line-height: 1.85;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+      .divider {
+        width: 70px;
+        height: 1px;
+        background: var(--line);
+        margin: 34px auto;
+        position: relative;
+      }
+      .divider::before {
+        content: "❁";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--gold-soft);
+        font-size: 12px;
+        background: var(--wine-dark);
+        padding: 0 8px;
+      }
+
+      /* ---------- Letter ---------- */
+      #letter h2,
+      .heading {
+        font-family: "Playfair Display", serif;
+        font-weight: 500;
+        text-align: center;
+        font-size: clamp(24px, 5vw, 32px);
+        color: var(--blush);
+        margin: 0 0 6px;
+      }
+      .heading-sub {
+        text-align: center;
+        font-size: 13px;
+        color: var(--blush-dim);
+        margin-bottom: 44px;
+        font-style: italic;
+        font-family: "Cormorant Garamond", serif;
+      }
+      .letter-card {
+        background: linear-gradient(
+          180deg,
+          rgba(245, 230, 218, 0.05),
+          rgba(245, 230, 218, 0.02)
+        );
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 44px 34px;
+        position: relative;
+      }
+      .letter-card::before {
+        content: "";
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        border: 1px solid rgba(217, 161, 132, 0.18);
+        pointer-events: none;
+      }
+      .letter-card p {
+        font-size: 15.5px;
+        line-height: 1.95;
+        color: var(--blush-dim);
+        margin: 0 0 22px;
+      }
+      .letter-card p:first-of-type::first-letter {
+        font-family: "Playfair Display", serif;
+        font-size: 52px;
+        float: left;
+        line-height: 0.8;
+        margin: 6px 10px 0 0;
+        color: var(--dusty-pink);
+      }
+      .letter-card p:last-child {
+        margin-bottom: 0;
+      }
+      .signoff {
+        text-align: right;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 18px;
+        color: var(--rose-gold);
+        margin-top: 28px;
+      }
+
+      /* ---------- Memories ---------- */
+      .polaroid {
+        background: #f2e9df;
+        padding: 12px 12px 46px;
+        width: 78%;
+        max-width: 290px;
+        margin: 0 auto 46px;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+        position: relative;
+        border-radius: 2px;
+      }
+      .polaroid:nth-child(odd) {
+        transform: rotate(-3deg);
+      }
+      .polaroid:nth-child(even) {
+        transform: rotate(2.5deg);
+        margin-left: auto;
+        margin-right: 8%;
+      }
+      .polaroid .tape {
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-2deg);
+        width: 60px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      .polaroid .frame,
+      .polaroid img {
+        aspect-ratio: 4/5;
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+        background:
+          radial-gradient(
+            circle at 30% 30%,
+            rgba(232, 176, 186, 0.35),
+            transparent 60%
+          ),
+          radial-gradient(
+            circle at 70% 70%,
+            rgba(202, 164, 106, 0.35),
+            transparent 60%
+          ),
+          linear-gradient(135deg, #4a1d28, #2a1016);
+      }
+      .polaroid .frame {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        color: rgba(245, 230, 218, 0.5);
+      }
+      .polaroid figcaption {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        color: #3c1620;
+        text-align: center;
+        font-size: 14.5px;
+        margin-top: 14px;
+        padding: 0 6px;
+      }
+
+      /* ---------- Music ---------- */
+      .track-card {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 18px;
+        background: rgba(245, 230, 218, 0.03);
+      }
+      .track-card p {
+        font-family: "Jost", sans-serif;
+        font-size: 11.5px;
+        letter-spacing: 0.05em;
+        color: var(--rose-gold);
+        text-transform: uppercase;
+        margin: 0 0 10px;
+      }
+      .track-card iframe {
+        border-radius: 8px;
+      }
+
+      #musicToggle {
+        position: fixed;
+        bottom: 26px;
+        right: 22px;
+        z-index: 50;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #a24858, #6e2634 75%);
+        border: none;
+        color: var(--blush);
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: breathe 3.6s ease-in-out infinite;
+      }
+      @keyframes breathe {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+      #musicPanel {
+        position: fixed;
+        bottom: 92px;
+        right: 22px;
+        z-index: 50;
+        width: min(300px, 82vw);
+        background: linear-gradient(
+          180deg,
+          var(--wine-deep),
+          var(--wine-deeper)
+        );
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        transform: translateY(16px) scale(0.96);
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+      }
+      #musicPanel.open {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #musicPanel .title {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 17px;
+        color: var(--dusty-pink);
+        margin: 0 0 12px;
+        text-align: center;
+      }
+
+      /* ---------- Closing ---------- */
+      #closing {
+        text-align: center;
+        padding-bottom: 160px;
+      }
+      .cake {
+        font-size: 44px;
+        margin-bottom: 18px;
+        display: block;
+      }
+      #closing h2 {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 600;
+        font-size: clamp(34px, 8vw, 52px);
+        margin: 0 0 14px;
+        color: var(--blush);
+      }
+      #closing .msg {
+        font-size: 14.5px;
+        color: var(--blush-dim);
+        margin-bottom: 36px;
+      }
+      #closeBtn {
+        font-family: "Jost", sans-serif;
+        letter-spacing: 0.08em;
+        font-size: 13.5px;
+        background: var(--rose-gold);
+        color: var(--wine-deeper);
+        border: none;
+        padding: 14px 32px;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+      #closeBtn:hover {
+        transform: translateY(-2px);
+      }
+
+      footer {
+        text-align: center;
+        padding: 30px 20px 50px;
+        font-family: "Jost", sans-serif;
+        font-size: 10.5px;
+        letter-spacing: 0.15em;
+        color: rgba(232, 176, 186, 0.35);
+        text-transform: uppercase;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .petal,
+        .envelope,
+        #musicToggle {
+          animation: none !important;
+        }
+        .reveal {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="vine">
+      <div id="vine-fill"></div>
+      <div id="vine-heart">♥</div>
+    </div>
+    <div id="particles"></div>
+
+    <!-- COVER -->
+    <section id="cover">
+      <div class="envelope-wrap">
+        <div class="env-flowers" id="envFlowers">
+          <div class="flower rose fl-1">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span class="center"></span>
+            <div class="stem"></div>
+          </div>
+          <div class="flower fl-2">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span class="center"></span>
+            <div class="stem"></div>
+          </div>
+          <div class="flower gold fl-3">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span class="center"></span>
+            <div class="stem"></div>
+          </div>
+          <div class="flower rose fl-4">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span class="center"></span>
+            <div class="stem"></div>
+          </div>
+          <div class="flower fl-5">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span class="center"></span>
+            <div class="stem"></div>
+          </div>
+        </div>
+        <div class="envelope" id="envelope">
+          <div class="env-body"></div>
+          <div class="env-letter">❤</div>
+          <div class="env-pocket-left"></div>
+          <div class="env-pocket-right"></div>
+          <div class="env-flap"></div>
+        </div>
+      </div>
+      <div class="to">Untuk Kayla Riza Lianty</div>
+      <h1>si bawel yang paling disayang</h1>
+      <p class="sub">
+        Ada satu surat kecil yang udah disiapin, khusus buat hari spesialmu hari
+        ini.
+      </p>
+      <button id="openBtn">Buka Suratnya</button>
+      <div class="scrollcue">gulir ke bawah</div>
+    </section>
+
+    <!-- HERO -->
+    <section id="hero">
+      <p class="line1 reveal">Selamat Ulang Tahun,</p>
+      <h1 class="reveal">Kayla Riza<br />Lianty</h1>
+      <p class="sub reveal">
+        Hari ini semesta lagi merayakan lahirnya perempuan yang paling berharga
+        dalam hidup aku. Selamat menikmati harimu, sayang.
+      </p>
+      <div class="divider"></div>
+    </section>
+
+    <!-- LETTER -->
+    <section id="letter">
+      <div class="eyebrow reveal">Sepucuk Rasa</div>
+      <h2 class="reveal">Surat Kecil Untukmu</h2>
+      <p class="heading-sub reveal">
+        ditulis dengan sepenuh hati, khusus buat kamu
+      </p>
+      <div class="letter-card reveal">
+        <p>
+          Selamat ulang tahun sayangku yang paling bawel dan suka ngambek. Maaf
+          ya, ulang tahun kali ini aku nggak bisa beliin hadiah apa-apa buat
+          kamu, tapi ini nggak kalah romantis kok, hehehe.
+        </p>
+        <p>
+          Semoga di umur yang baru ini semua doa dan harapan kamu satu per satu
+          bisa tercapai. Semoga kamu selalu sehat, panjang umur, makin bahagia,
+          makin cantik (walaupun dari sekarang juga udah cantik banget), dan
+          selalu dikelilingi orang-orang yang sayang sama kamu.
+        </p>
+        <p>
+          Terima kasih ya udah mau hadir di hidup aku, udah nemenin aku,
+          ngertiin aku, dan tetap bertahan sama segala kurangnya aku. Maaf kalau
+          selama ini aku masih sering bikin kamu kesel, bikin kamu ngambek, atau
+          belum bisa jadi yang terbaik buat kamu. Aku bakal terus belajar supaya
+          bisa jadi pasangan yang lebih baik lagi.
+        </p>
+        <p>
+          Semoga hubungan kita juga selalu diberi yang terbaik, makin kuat,
+          makin dewasa, dan semoga semua rencana yang kita impikan bisa terwujud
+          satu per satu. Aku pengen masih bisa ngerayain ulang tahun kamu, bukan
+          cuma tahun ini, tapi di tahun-tahun berikutnya juga.
+        </p>
+        <p>
+          Sekali lagi, selamat ulang tahun yaa, cintaku. Jangan lupa banyak
+          senyum hari ini, karena hari ini adalah hari spesialnya perempuan yang
+          paling aku sayang. Aku sayang banget sama kamu. ❤️🎉
+        </p>
+        <div class="signoff">— Untuk Kayla dari Salman</div>
+      </div>
+    </section>
+
+    <!-- MEMORIES -->
+    <section id="memories">
+      <div class="eyebrow reveal">Foto Kenangan Kita</div>
+      <h2 class="reveal" style="text-align: center">
+        Kenangan yang Aku Simpan Bareng Kamu
+      </h2>
+      <p class="heading-sub reveal">
+        tiga foto ini adalah foto yg paling aku suka
+      </p>
+
+      <figure class="polaroid reveal">
+        <div class="tape"></div>
+        <img src="bersama1.jpeg" alt="Kenangan 1" />
+        <figcaption>
+          Ini foto yang berartinya nggak cuma buat aku, tapi juga buat kamu.
+          Semoga kita bisa bikin banyak kenangan baru yang lebih seru lagi, yaa.
+        </figcaption>
+      </figure>
+
+      <figure class="polaroid reveal">
+        <div class="tape"></div>
+        <img src="Bersama2.jpeg" alt="Kenangan 2" />
+        <figcaption>
+          Di foto ini kita sedang tidak baik-baik aja, tapi aku suka banget sama
+          ekspresi kamu yang masih bisa senyum walaupun lagi benci sama aku.
+          Semoga kita bisa terus saling ngerti satu sama lain, yaa.
+        </figcaption>
+      </figure>
+
+      <figure class="polaroid reveal">
+        <div class="tape"></div>
+        <img src="Bersama4.jpeg" alt="Kenangan 3" />
+        <figcaption>
+          ini adalah foto pertama kali aku ke puncak nemenin kamu cabut sekolah.
+          aku seneng banget bisa nemenin kamu di hari itu.
+        </figcaption>
+      </figure>
+
+      <figure class="polaroid reveal">
+        <div class="tape"></div>
+        <img src="Bersama3.jpeg" alt="Kenangan 4" />
+        <figcaption>
+          Ini adalah momen pertama aku merayakan graduation day kamu. Aku seneng
+          banget bisa nemenin kamu di hari spesial itu, dan aku berharap bisa
+          nemenin kamu di semua momen spesial berikutnya.
+        </figcaption>
+      </figure>
+
+      <figure class="polaroid reveal">
+        <div class="tape"></div>
+        <img src="Bersama6.jpeg" alt="Kenangan 5" />
+        <figcaption>
+          ini adalah perkatama kalinya aku di tinggal LDR sama kamu selama 6
+          bulan. di sini kita sering berantem, tapi setelah itu kita bisa lebih
+          dewasa dan saling ngerti satu sama lain.
+        </figcaption>
+      </figure>
+
+      <figure class="polaroid reveal">
+        <div class="tape"></div>
+        <img src="Bersama7.jpeg" alt="Kenangan 6" />
+        <figcaption>
+          ini foto yang paling aku suka, karena kamu diem-diem suprise aku di
+          hari ulang tahun aku. maafin aku ya kalau aku nggak bisa suprise kamu
+          di hari ulang tahun kamu. tapi aku janji, aku bakal bikin kamu seneng
+          di hari spesial kamu.
+        </figcaption>
+      </figure>
+
+      <figure class="polaroid reveal">
+        <div class="tape"></div>
+        <img src="Bersama5.jpeg" alt="Kenangan 7" />
+        <figcaption>
+          ini momen pertama kali kita fotobuth, dan first time aku fotobuth sama
+          perempuan yang aku sayang.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- VIDEO UCAPAN -->
+    <section id="video-message">
+      <div class="eyebrow reveal">Bukan Cuma Kata-kata</div>
+      <h2 class="reveal" style="text-align: center">Ada Video Buat Kamu</h2>
+      <p class="heading-sub reveal">
+        ini aku dan teman" kamu ada buat vidio singkat, tonton ya sayang
+      </p>
+
+      <div class="letter-card reveal" style="padding: 16px">
+        <video
+          controls
+          playsinline
+          style="width: 100%; border-radius: 6px; display: block"
+          poster="img/video-cover.jpeg"
+        >
+          <source src="0716.mp4" type="video/mp4" />
+          Browser kamu nggak support video ini.
+        </video>
+      </div>
+    </section>
+
+    <!-- MUSIC -->
+    <section id="music">
+      <div class="eyebrow reveal">Buat Didengerin Bareng</div>
+      <h2 class="reveal" style="text-align: center">Lagu Buat Kamu</h2>
+      <p class="heading-sub reveal">
+        dua lagu ini aku pilihin khusus, temenin sambil baca suratnya lagi
+      </p>
+
+      <div class="track-card reveal">
+        <p>favorite-01</p>
+        <iframe
+          src="https://open.spotify.com/embed/track/2plbrEY59IikOBgBGLjaoe?utm_source=generator&theme=0"
+          width="100%"
+          height="152"
+          frameborder="0"
+          allow="
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            fullscreen;
+            picture-in-picture;
+          "
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="track-card reveal">
+        <p>favorite-02</p>
+        <iframe
+          src="https://open.spotify.com/embed/track/7gB98EWp4p9VKxOToaqrhM?utm_source=generator&theme=0"
+          width="100%"
+          height="152"
+          frameborder="0"
+          allow="
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            fullscreen;
+            picture-in-picture;
+          "
+          loading="lazy"
+        ></iframe>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section id="closing">
+      <span class="cake reveal">🎂</span>
+      <h2 class="reveal">Happy Birthday, Kayla!</h2>
+      <p class="msg reveal">dengan cinta yang nggak pernah abis 💕</p>
+      <button id="closeBtn" class="reveal">Kembali ke Atas</button>
+    </section>
+
+    <footer>dibuat dengan sepenuh hati, untuk Kayla Riza Lianty</footer>
+
+    <!-- MUSIC PANEL -->
+    <div id="musicPanel">
+      <div class="title">Lagu Buat Kamu</div>
+      <div class="track-card" style="margin-bottom: 12px">
+        <iframe
+          src="https://open.spotify.com/embed/track/2plbrEY59IikOBgBGLjaoe?utm_source=generator&theme=0"
+          width="100%"
+          height="152"
+          frameborder="0"
+          allow="
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            fullscreen;
+            picture-in-picture;
+          "
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="track-card" style="margin-bottom: 0">
+        <iframe
+          src="https://open.spotify.com/embed/track/7gB98EWp4p9VKxOToaqrhM?utm_source=generator&theme=0"
+          width="100%"
+          height="152"
+          frameborder="0"
+          allow="
+            autoplay;
+            clipboard-write;
+            encrypted-media;
+            fullscreen;
+            picture-in-picture;
+          "
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+    <button id="musicToggle" aria-label="Buka pemutar musik">♪</button>
+
+    <script>
+      // cover open: envelope opens, flowers bloom, then scroll to hero
+      const openBtn = document.getElementById("openBtn");
+      const envelope = document.getElementById("envelope");
+      const envFlowers = document.getElementById("envFlowers");
+      let opened = false;
+
+      openBtn.addEventListener("click", () => {
+        if (opened) return;
+        opened = true;
+        openBtn.disabled = true;
+
+        envelope.classList.add("opened");
+        envFlowers.classList.add("bloom");
+
+        // burst a few extra petals right when it opens, for flair
+        for (let i = 0; i < 10; i++) {
+          setTimeout(() => spawnPetal(), i * 60);
+        }
+
+        setTimeout(() => {
+          document.getElementById("hero").scrollIntoView({ behavior: "smooth" });
+        }, 1600);
+      });
+
+      document.getElementById("closeBtn").addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // music panel toggle
+      const panel = document.getElementById("musicPanel");
+      document.getElementById("musicToggle").addEventListener("click", () => {
+        panel.classList.toggle("open");
+      });
+
+      // scroll reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.15 },
+      );
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+
+      // vine scroll progress
+      const vineFill = document.getElementById("vine-fill");
+      const vineHeart = document.getElementById("vine-heart");
+      window.addEventListener("scroll", () => {
+        const h = document.documentElement;
+        const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+        vineFill.style.height = pct + "%";
+        vineHeart.style.top = pct + "%";
+      });
+
+      // floating petals
+      const particlesEl = document.getElementById("particles");
+      const glyphs = ["❁", "♡", "✦", "❀"];
+      function spawnPetal() {
+        const p = document.createElement("span");
+        p.className = "petal";
+        p.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        const left = Math.random() * 100;
+        const drift = Math.random() * 140 - 70 + "px";
+        const spin = Math.random() * 60 - 30 + "deg";
+        const dur = 9 + Math.random() * 8;
+        p.style.left = left + "vw";
+        p.style.fontSize = 10 + Math.random() * 10 + "px";
+        p.style.setProperty("--drift", drift);
+        p.style.setProperty("--spin", spin);
+        p.style.animationDuration = dur + "s";
+        particlesEl.appendChild(p);
+        setTimeout(() => p.remove(), dur * 1000);
+      }
+      setInterval(spawnPetal, 900);
+      for (let i = 0; i < 6; i++) setTimeout(spawnPetal, i * 300);
+    </script>
+  </body>
+</html>
